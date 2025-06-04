@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Histórico do Chatbot</h2>
+<ul class="list-group">
+    {% for pergunta, resposta, data in historico %}
+    <li class="list-group-item">
+        <strong>{{ data }}:</strong> <br>
+        <em>Pergunta:</em> {{ pergunta }} <br>
+        <em>Resposta:</em> {{ resposta }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

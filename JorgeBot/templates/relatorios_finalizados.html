@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Relatórios Encerrados</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>À Vista</th>
+            <th>Fiado</th>
+            <th>Gastos</th>
+            <th>Lucro</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data, avista, fiado, gastos, lucro in relatorios %}
+        <tr>
+            <td>{{ data }}</td>
+            <td>R$ {{ avista }}</td>
+            <td>R$ {{ fiado }}</td>
+            <td>R$ {{ gastos }}</td>
+            <td>R$ {{ lucro }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

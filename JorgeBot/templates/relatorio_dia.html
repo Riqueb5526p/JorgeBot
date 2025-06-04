@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 id="titulo-relatorio"></h2>
+
+<ul class="list-group">
+    <li class="list-group-item">Total Vendido (À Vista): <strong>R$ {{ total_vendas }}</strong></li>
+    <li class="list-group-item">Total Vendido (Fiado): <strong>R$ {{ total_fiado }}</strong></li>
+    <li class="list-group-item">Total de Gastos: <strong>R$ {{ total_gastos }}</strong></li>
+    <li class="list-group-item">Lucro Final: <strong>R$ {{ lucro }}</strong></li>
+</ul>
+
+<h3 class="mt-4">Clientes Devendo</h3>
+<ul class="list-group">
+    {% for cliente, valor in fiado_clientes %}
+        <li class="list-group-item">{{ cliente }}: R$ {{ valor }}</li>
+    {% endfor %}
+</ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const ano = hoje.getFullYear();
+        const titulo = `Relatório Financeiro ${dia}/${mes}/${ano}`;
+        document.getElementById('titulo-relatorio').innerText = titulo;
+    });
+</script>
+{% endblock %}

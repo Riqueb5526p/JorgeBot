@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Registrar Venda</h2>
+<form method="post">
+    Produto: <input type="text" name="produto" class="form-control mb-2" required>
+    Valor (R$): <input type="number" step="0.01" name="valor" class="form-control mb-2" required>
+    Cliente: <input type="text" name="cliente" class="form-control mb-2">
+    Tipo:
+    <select name="tipo" class="form-control mb-2">
+        <option value="avista">À Vista</option>
+        <option value="fiado">Fiado</option>
+    </select>
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
+{% endblock %}

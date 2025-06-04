@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+    <h2>Bem-vindo, Seu Jorge!</h2>
+    <p>Escolha uma opção no menu acima.</p>
+</div>
+
+<hr>
+
+<div class="container mt-4">
+    <h4>JorgeBot</h4>
+    <div id="chat-box" style="height: 200px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;"></div>
+    
+    <div class="input-group mb-3">
+        <input type="text" id="pergunta" class="form-control" placeholder="Digite sua pergunta...">
+        <button class="btn btn-primary" onclick="enviarPergunta()">Enviar</button>
+    </div>
+</div>
+
+<!-- Suporte para Enter enviar a mensagem -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('pergunta');
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            enviarPergunta();
+        }
+    });
+
+    // Carrega histórico do sessionStorage
+    const history = JSON.parse(sessionStorage.getItem('chatHistory')) || [];
+    const chatBox = document.getElementById("chat-box");
+    history.forEach(msg => {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+        chatBox.appendChild(div);
+    });
+});
+</script>
+
+<!-- Função principal do chat -->
+<script>
+function enviarPergunta() {
+    const pergunta = document.getElementById('pergunta').value.trim();
+    if (!pergunta) return;
+
+    fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pergunta: pergunta })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const chatBox = document.getElementById('chat-box');
+
+        const userMsg = { sender: "Você", text: pergunta };
+        const botMsg = { sender: "Bot", text: data.resposta };
+
+        chatBox.innerHTML += `<div><strong>Você:</strong> ${pergunta}</div>`;
+        chatBox.innerHTML += `<div><strong>Bot:</strong> ${data.resposta}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        if (pergunta.toLowerCase() === "finalizar o dia") {
+    sessionStorage.removeItem('chatHistory');
+    chatBox.innerHTML += `<div><em>Chat apagado após finalizar o dia. Atualize a página para excluir o chat.</em></div>`;
+    // Não limpar o chatBox.innerHTML imediatamente, espera atualização da página
+} else {
+    const history = JSON.parse(sessionStorage.getItem('chatHistory')) || [];
+    history.push(userMsg, botMsg);
+    sessionStorage.setItem('chatHistory', JSON.stringify(history));
+}
+
+        document.getElementById('pergunta').value = '';
+    });
+}
+</script>
+{% endblock %}

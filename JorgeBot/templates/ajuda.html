@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fs-3">Ajuda - Como usar o Chatbot 🤖</h2>
+
+<p class="fs-5">Este assistente pode entender comandos em linguagem natural para registrar suas vendas, gastos e gerar relatórios.</p>
+
+<hr>
+
+<h4 class="fs-4">📦 Exemplos de comandos que funcionam:</h4>
+<ul class="fs-5">
+    <li><code>Registrar venda de 10 reais de pão para o João à vista</code></li>
+    <li><code>Registrar venda de 15 reais de leite para a Ana fiado</code></li>
+    <li><code>Registrar gasto de 100 reais com energia</code></li>
+    <li><code>Finalizar o dia</code></li>
+</ul>
+
+<hr>
+
+<h4 class="fs-4">💡 Dicas de uso:</h4>
+<ul class="fs-5">
+    <li>Se não informar o cliente ou o tipo da venda, o sistema usa "Cliente não informado" e "à vista" por padrão.</li>
+    <li>O comando <strong>"Finalizar o dia"</strong> fecha o caixa atual, salva o relatório e apaga os registros do dia.</li>
+</ul>
+
+<p class="mt-4 fs-5"><strong>⚠️ Importante:</strong> Dados apagados ao final do dia não poderão ser recuperados. Use o comando "Finalizar o dia" apenas quando tiver certeza.</p>
+{% endblock %}
